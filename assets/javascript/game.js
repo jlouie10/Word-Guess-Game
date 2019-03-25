@@ -4,7 +4,9 @@ var game = {
     theme: "food",
     wordsPack: ["spaghetti", "pizza", "steak", "salad", "fried chicken", "burrito"],
     word: "new game",
-    guesses: 0
+    maskedWord: [],
+    guesses: 0,
+    guessedLetters: []
 }
     
 // Grabs a reference to the <span>
@@ -27,13 +29,17 @@ document.onkeyup = function(event) {
     }
     else {
         // Continue current game
-        game.guesses--;
+        // Moved game.guesses--; to function determineGuess()
     }
-      
-    // console.log("The current word is " + game.word);
-    // console.log("You have " + game.wins + " wins");
-    // console.log("There are " + game.guesses + " left");
-    // console.log("----------");
+
+    console.log("The current word is " + game.word + " (" + game.word.length + ")"); // game.word.length for testing
+    console.log("You have " + game.wins + " wins");
+    
+    determineGuess(userGuess);
+
+    console.log("There are " + game.guesses + " guesses left");
+    console.log("----------");
+
 };
       
 function newGame() {
@@ -41,5 +47,22 @@ function newGame() {
     game.word = game.wordsPack[Math.floor(Math.random() * game.wordsPack.length)];
 
     // Sets the number of guesses to the length of the current word
-    game.guesses = game.word.length - 1;
+    game.guesses = game.word.length; // Removed ( - 1) to account for correct guess
+
+    // Resets the array containing guessed letters
+    game.guessedLetters = [];
+}
+
+function determineGuess(guess) {
+    for (i=0; i < game.word.length; i++) {
+        if (guess.toLowerCase() === game.word.charAt(i)) {
+            console.log("Correct guess " + i + ": " + guess.toLowerCase());
+            i = game.word.length;
+        }
+
+        if (i === (game.word.length - 1)) {
+            console.log("Wrong guess " + i + ": " + guess.toLowerCase());
+            game.guesses--;
+        }
+    }
 }
