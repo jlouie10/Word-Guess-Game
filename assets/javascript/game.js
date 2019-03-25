@@ -30,10 +30,10 @@ document.onkeyup = function(event) {
         game.guesses--;
     }
       
-    console.log("The current word is " + game.word);
-    console.log("You have " + game.wins + " wins");
-    console.log("There are " + game.guesses + " left");
-    console.log("----------");
+    // console.log("The current word is " + game.word);
+    // console.log("You have " + game.wins + " wins");
+    // console.log("There are " + game.guesses + " left");
+    // console.log("----------");
 };
       
 function newGame() {
