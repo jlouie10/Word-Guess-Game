@@ -22,6 +22,7 @@ var text = {
     letters: document.getElementById("letters")
 };
 
+// Start a new game when page is loaded
 newGame();
 
 // This function is run whenever the user presses a key
@@ -30,15 +31,12 @@ document.onkeyup = function (event) {
     // Determines which key was pressed.
     var userGuess = event.key;
 
-    determineMatch(userGuess);
-    newGame();
-
-    console.log("The current word is " + word.current + " (" + word.current.length + ")");
-    console.log("The previous word was " + word.previous);
-    console.log("You have " + wins + " wins");
-    console.log("There are " + guess.left + " guesses left");
-    console.log("----------");
-};
+    // Validate keypress
+    if (validateInput(userGuess) === true) {
+        determineMatch(userGuess);
+        newGame();
+    }
+}
 
 function newGame() {
 
@@ -47,36 +45,57 @@ function newGame() {
     if ((guess.left === 0) ||
         (isWin === true)) { // Start a new game
 
-        text.wins.textContent = wins;
-
         word.previous = word.current;
-        text.wordPrevious.textContent = word.previous;
 
         // Randomly chooses a choice from the word pack
         word.current = word.pack[Math.floor(Math.random() * word.pack.length)];
 
         // Sets the number of guesses
         guess.left = word.current.length;
-        text.guesses.textContent = guess.left;
 
         // Resets the length of the masked word (in order to clear excess letters)
         word.masked.length = word.current.length;
-        word.string.length = word.current.length;
 
         // Creates a masked word and stores in the array
         for (i = 0; i < word.current.length; i++) {
-            word.masked[i] = "_";
+            
+            // If space or dash, ignore and remove from guess count
+            if ((word.current.charAt(i) === " ") ||
+                (word.current.charAt(i) === "-")) {
+                    word.masked[i] = word.current.charAt(i);
+                    guess.left--;
+                }
+            else {
+                word.masked[i] = "_";
+            }
         }
-
-        updateDisplay(word.masked, word.string, text.wordCurrent);
 
         // Resets the array containing guessed letters
         guess.letters = [];
-        console.log("New Game")
 
-        updateDisplay(guess.letters, guess.string, text.letters);
+        initializeDisplay();
     }
     // else continue current game
+}
+
+function initializeDisplay() {
+    text.wins.textContent = wins;
+    text.wordPrevious.textContent = word.previous;
+    text.guesses.textContent = guess.left;
+    updateLetters(word.masked, word.string, text.wordCurrent);
+    updateLetters(guess.letters, guess.string, text.letters);
+}
+
+function validateInput(input) {
+    // User regular expression to accept lowercase keypress
+    var regex=/^[a-z]+$/;
+    
+    if (input.match(regex) === null) {
+        return false;
+    }
+    else {
+        return true;
+    }
 }
 
 function determineMatch(letter) {
@@ -88,7 +107,6 @@ function determineMatch(letter) {
 
         // User already guessed this letter
         alreadyGuessed = true;
-        console.log(letter + " already guessed")
     }
     else {
         // Iterates through word checking guess against each letter
@@ -110,11 +128,11 @@ function determineMatch(letter) {
             text.guesses.textContent = guess.left;
 
             // Update display only when an incorrect guess is made
-            updateDisplay(guess.letters, guess.string, text.letters);
+            updateLetters(guess.letters, guess.string, text.letters);
         }
         else {
             // Update display only when a correct guess is made
-            updateDisplay(word.masked, word.string, text.wordCurrent);
+            updateLetters(word.masked, word.string, text.wordCurrent);
         }
     }
 }
@@ -140,11 +158,7 @@ function determineWin() {
     return winStatus;
 }
 
-function updateDisplay(inputArray, inputString, span) {
+function updateLetters(inputArray, inputString, span) {
     inputString = inputArray.toString();
     span.textContent = inputString.replace(/,/g, " ");
-
-    for (i = 0; i < inputArray.length; i++) {
-        console.log(inputArray[i]);
-    }
 }
