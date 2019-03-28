@@ -4,11 +4,13 @@ var word = {
     current: "",
     previous: "",
     pack: ["spaghetti", "pizza", "steak", "salad", "fried chicken", "burrito"],
-    masked: []
+    masked: [],
+    string: ""
 };
 var guess = {
     left: 0,
-    letters: []
+    letters: [],
+    string: ""
 };
 
 // Grabs a reference to the <span>
@@ -20,22 +22,22 @@ var text = {
     letters: document.getElementById("letters")
 };
 
+newGame();
+
 // This function is run whenever the user presses a key
 document.onkeyup = function (event) {
 
     // Determines which key was pressed.
     var userGuess = event.key;
 
-    newGame();
     determineMatch(userGuess);
-    displayResult();
+    newGame();
 
     console.log("The current word is " + word.current + " (" + word.current.length + ")");
     console.log("The previous word was " + word.previous);
     console.log("You have " + wins + " wins");
     console.log("There are " + guess.left + " guesses left");
     console.log("----------");
-
 };
 
 function newGame() {
@@ -43,27 +45,36 @@ function newGame() {
     var isWin = determineWin();
 
     if ((guess.left === 0) ||
-        (isWin == true)) { // Start a new game
+        (isWin === true)) { // Start a new game
+
+        text.wins.textContent = wins;
 
         word.previous = word.current;
+        text.wordPrevious.textContent = word.previous;
 
         // Randomly chooses a choice from the word pack
         word.current = word.pack[Math.floor(Math.random() * word.pack.length)];
 
         // Sets the number of guesses
         guess.left = word.current.length;
+        text.guesses.textContent = guess.left;
 
         // Resets the length of the masked word (in order to clear excess letters)
         word.masked.length = word.current.length;
+        word.string.length = word.current.length;
 
         // Creates a masked word and stores in the array
         for (i = 0; i < word.current.length; i++) {
             word.masked[i] = "_";
         }
 
+        updateDisplay(word.masked, word.string, text.wordCurrent);
+
         // Resets the array containing guessed letters
         guess.letters = [];
         console.log("New Game")
+
+        updateDisplay(guess.letters, guess.string, text.letters);
     }
     // else continue current game
 }
@@ -96,13 +107,14 @@ function determineMatch(letter) {
         if (correctGuess === false) {
             guess.left--;
             guess.letters[guess.letters.length] = letter;
+            text.guesses.textContent = guess.left;
 
-            // Update display only when a correct guess is made
-            updateArray(guess.letters);
+            // Update display only when an incorrect guess is made
+            updateDisplay(guess.letters, guess.string, text.letters);
         }
         else {
             // Update display only when a correct guess is made
-            updateArray(word.masked);
+            updateDisplay(word.masked, word.string, text.wordCurrent);
         }
     }
 }
@@ -128,16 +140,11 @@ function determineWin() {
     return winStatus;
 }
 
-function updateArray(array) {
-    for (i = 0; i < array.length; i++) {
-        console.log(array[i]);
-    }
-}
+function updateDisplay(inputArray, inputString, span) {
+    inputString = inputArray.toString();
+    span.textContent = inputString.replace(/,/g, " ");
 
-function displayResult() {
-    text.wins.textContent = wins;
-    // text.wordCurrent.textContent = needs to display masked word
-    text.wordPrevious.textContent = word.previous;
-    text.guesses.textContent = guess.left;
-    text.letters.textContent = guess.letters;
+    for (i = 0; i < inputArray.length; i++) {
+        console.log(inputArray[i]);
+    }
 }
