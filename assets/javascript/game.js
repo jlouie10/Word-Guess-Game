@@ -26,6 +26,7 @@ document.onkeyup = function (event) {
 
     newGame();
     determineMatch(userGuess);
+    determineWin();
 
     console.log("The current word is " + word.current + " (" + word.current.length + ")");
     console.log("You have " + wins + " wins");
@@ -37,6 +38,7 @@ document.onkeyup = function (event) {
 function newGame() {
 
     if (guess.left === 0) { // Start a new game
+
         // Randomly chooses a choice from the word pack
         word.current = word.pack[Math.floor(Math.random() * word.pack.length)];
 
@@ -64,6 +66,7 @@ function determineMatch(letter) {
     // Iterates through word checking guess against each letter
     for (i = 0; i < word.current.length; i++) {
         if (letter === word.current.charAt(i)) {
+
             // User guessed correctly
             word.masked[i] = letter;
             correctGuess = true;
@@ -79,6 +82,25 @@ function determineMatch(letter) {
         // Update display only when a correct guess is made
         for (i = 0; i < word.masked.length; i++) {
             console.log(word.masked[i]);
+        }
+    }
+}
+
+function determineWin() {
+    var winStatus = false;
+
+    for (i = 0; i < word.masked.length; i++) {
+
+        // Check for character mask
+        if (word.masked[i] === "_") {
+            i = word.masked.length;
+            winStatus = false;
+        }
+
+        // Once the array has been iterated through and no characters are masked, it's a win
+        else if (i === (word.masked.length - 1)) {
+            winStatus = true;
+            wins++;
         }
     }
 }
