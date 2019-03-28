@@ -28,6 +28,7 @@ document.onkeyup = function (event) {
 
     newGame();
     determineMatch(userGuess);
+    displayResult();
 
     console.log("The current word is " + word.current + " (" + word.current.length + ")");
     console.log("The previous word was " + word.previous);
@@ -133,3 +134,10 @@ function updateArray(array) {
     }
 }
 
+function displayResult() {
+    text.wins.textContent = wins;
+    // text.wordCurrent.textContent = needs to display masked word
+    text.wordPrevious.textContent = word.previous;
+    text.guesses.textContent = guess.left;
+    text.letters.textContent = guess.letters;
+}
