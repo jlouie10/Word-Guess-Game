@@ -1,7 +1,8 @@
 // Declare variables
 var wins = 0;
 var word = {
-    current: "new game",
+    current: "",
+    previous: "",
     pack: ["spaghetti", "pizza", "steak", "salad", "fried chicken", "burrito"],
     masked: []
 };
@@ -13,7 +14,8 @@ var guess = {
 // Grabs a reference to the <span>
 var text = {
     wins: document.getElementById("wins"),
-    word: document.getElementById("word"),
+    wordCurrent: document.getElementById("word-current"),
+    wordPrevious: document.getElementById("word-previous"),
     guesses: document.getElementById("guesses"),
     letters: document.getElementById("letters")
 };
@@ -26,9 +28,9 @@ document.onkeyup = function (event) {
 
     newGame();
     determineMatch(userGuess);
-    determineWin();
 
     console.log("The current word is " + word.current + " (" + word.current.length + ")");
+    console.log("The previous word was " + word.previous);
     console.log("You have " + wins + " wins");
     console.log("There are " + guess.left + " guesses left");
     console.log("----------");
@@ -37,7 +39,12 @@ document.onkeyup = function (event) {
 
 function newGame() {
 
-    if (guess.left === 0) { // Start a new game
+    var isWin = determineWin();
+
+    if ((guess.left === 0) ||
+        (isWin == true)) { // Start a new game
+
+        word.previous = word.current;
 
         // Randomly chooses a choice from the word pack
         word.current = word.pack[Math.floor(Math.random() * word.pack.length)];
@@ -62,29 +69,40 @@ function newGame() {
 
 function determineMatch(letter) {
     var correctGuess = false;
+    var alreadyGuessed = false;
 
-    // Iterates through word checking guess against each letter
-    for (i = 0; i < word.current.length; i++) {
-        if (letter === word.current.charAt(i)) {
+    if ((word.masked.indexOf(letter) !== -1) ||
+        (guess.letters.indexOf(letter) !== -1)) {
 
-            // User guessed correctly
-            word.masked[i] = letter;
-            correctGuess = true;
+        // User already guessed this letter
+        alreadyGuessed = true;
+        console.log(letter + " already guessed")
+    }
+    else {
+        // Iterates through word checking guess against each letter
+        for (i = 0; i < word.current.length; i++) {
+            if (letter === word.current.charAt(i)) {
+
+                // User guessed correctly
+                word.masked[i] = letter;
+                correctGuess = true;
+            }
         }
     }
 
     // If user guesses no letters, count down
-    if (correctGuess === false) {
-        guess.left--;
+    if (alreadyGuessed === false) {
+        if (correctGuess === false) {
+            guess.left--;
+            guess.letters[guess.letters.length] = letter;
 
-        guess.letters[guess.letters.length] = letter;
-
-        // Update display only when a correct guess is made
-        updateArray(guess.letters);
-    }
-    else {
-        // Update display only when a correct guess is made
-        updateArray(word.masked);
+            // Update display only when a correct guess is made
+            updateArray(guess.letters);
+        }
+        else {
+            // Update display only when a correct guess is made
+            updateArray(word.masked);
+        }
     }
 }
 
@@ -105,6 +123,8 @@ function determineWin() {
             wins++;
         }
     }
+
+    return winStatus;
 }
 
 function updateArray(array) {
@@ -112,3 +132,4 @@ function updateArray(array) {
         console.log(array[i]);
     }
 }
+
