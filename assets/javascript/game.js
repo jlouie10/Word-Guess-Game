@@ -76,13 +76,15 @@ function determineMatch(letter) {
     // If user guesses no letters, count down
     if (correctGuess === false) {
         guess.left--;
-        console.log("abc" + correctGuess + guess.left);
+
+        guess.letters[guess.letters.length] = letter;
+
+        // Update display only when a correct guess is made
+        updateArray(guess.letters);
     }
     else {
         // Update display only when a correct guess is made
-        for (i = 0; i < word.masked.length; i++) {
-            console.log(word.masked[i]);
-        }
+        updateArray(word.masked);
     }
 }
 
@@ -102,5 +104,11 @@ function determineWin() {
             winStatus = true;
             wins++;
         }
+    }
+}
+
+function updateArray(array) {
+    for (i = 0; i < array.length; i++) {
+        console.log(array[i]);
     }
 }
