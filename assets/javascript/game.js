@@ -3,8 +3,8 @@ var wins = 0;
 var word = {
     current: "",
     previous: "",
-    pack: ["spaghetti", "pizza", "steak", "salad", "fried chicken", "burrito"],
-    masked: [],
+    pack: ["spaghetti", "pizza", "steak", "salad", "fried chicken", "burrito", "burger", "mashed potatoes"],
+    masked: [], // !!! Combine array and string !!!
     string: ""
 };
 var guess = {
@@ -73,6 +73,7 @@ function newGame() {
         // Resets the array containing guessed letters
         guess.letters = [];
 
+        // Refresh the display at the start of a new game
         initializeDisplay();
     }
     // else continue current game
@@ -137,7 +138,7 @@ function determineMatch(letter) {
     }
 }
 
-function determineWin() {
+function determineWin() { // !!! Revise this into a count down from word length !!!
     var winStatus = false;
 
     for (i = 0; i < word.masked.length; i++) {
@@ -159,6 +160,8 @@ function determineWin() {
 }
 
 function updateLetters(inputArray, inputString, span) {
+    
+    // Remove commas from display
     inputString = inputArray.toString();
     span.textContent = inputString.replace(/,/g, " ");
 }
