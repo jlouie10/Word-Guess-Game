@@ -26,11 +26,16 @@ ul {
     z-index: 2;
 }
 
-
-.fa-redo {
+.navbar-reload i {
     font-size: 24px;
     position: absolute;
     left: 0;
+    top: 20px;
+    color: #fff;
+}
+
+.navbar-reload:hover i, .navbar-reload:active i, .navbar-reload:focus i {
+    color: #d61a28;
 }
 
 .navbar-brand {
@@ -38,6 +43,10 @@ ul {
     font-size: 1.5rem;
     margin: 0;
     color: #fff;
+}
+
+.navbar-brand:hover, .navbar-brand:active, .navbar-brand:focus {
+    color: #333 !important;
 }
 
 .navbar-widget {
@@ -48,15 +57,26 @@ ul {
 
 .jumbotron {
     /* background-image: url("assets/images/gordon_bg.png"); */
-    background-image: url("../images/gordon_bg.jpg");
-    max-height: 579px;
-    max-width: 980px;
-    height: 579px;
+    /* background-image: url("../images/gordon_bg.jpg");
+    max-height: 568px;
+    max-width: 960px;
+    height: 568px;
     background-size: cover;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
+    background-color: #000;
+    padding-top: 0;
+    padding-bottom: 0;
+    text-align: center;
     margin: 0 auto;
     position: relative;
     z-index: 1;
+}
+
+.jumbotron img {
+    max-width: 960px;
+    max-height: 568px;
+    width: 100%;
+    height: 100%;
 }
 
 #instructions, #word, #word-previous-container, #letters-guessed {
@@ -106,5 +126,50 @@ ul {
 @media (min-width: 1200px) {
     nav {
         max-width: 1140px;
+    }
+}
+
+@media (max-width: 992px) {
+    #word-current {
+        font-size: 3rem;
+        letter-spacing: 0.35rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar-reload {
+        display: none;
+    }
+
+    .navbar-widget {
+        display: none;
+    }
+
+    #instructions-outer {
+        bottom: 20px;
+    }
+
+    #instructions {
+        font-size: 1.2rem;
+    }
+
+    #word-current {
+        font-size: 2rem;
+        letter-spacing: 0.2rem;
+    }
+
+    #letters {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+
+    #word-current {
+        font-size: 1.1rem;
+        letter-spacing: 0.2rem;
     }
 }
