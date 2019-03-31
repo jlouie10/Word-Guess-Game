@@ -1,12 +1,110 @@
-span {
-    white-space: pre;
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #000;
+    color: #fff;
 }
 
-#word {
+span {
+    white-space: pre;
+    font-family: 'Cinzel', serif;
+}
+
+ul {
+    list-style: none;
+    text-align: right;
+    text-transform: uppercase;
+}
+
+.navbar-outer {
+    position: absolute;
+    width: 100%;
+}
+
+.navbar {
+    margin: 0 auto;
+    font-family: 'Cinzel', serif;
+    z-index: 2;
+}
+
+
+.fa-redo {
+    font-size: 24px;
+    position: absolute;
+    left: 0;
+}
+
+.navbar-brand {
+    /* text-transform: uppercase; */
+    font-size: 1.5rem;
+    margin: 0;
+    color: #fff;
+}
+
+.navbar-widget {
+    position: absolute;
+    right: 0;
+    color: #fff;
+}
+
+.jumbotron {
+    /* background-image: url("assets/images/gordon_bg.png"); */
+    background-image: url("../images/gordon_bg.jpg");
+    max-height: 579px;
+    max-width: 980px;
+    height: 579px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+#instructions, #word, #word-previous-container, #letters-guessed {
     text-align: center;
+}
+
+#instructions {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+#instructions-outer {
+    position: absolute;
+    bottom: 40px;
+    width: 100%;
+    left: 0;
+    right: 0;
 }
 
 #word-current {
     font-size: 4rem;
     letter-spacing: 0.5rem;
+}
+
+#letters {
+    font-size: 2rem;
+}
+
+@media (min-width: 576px) {
+    nav {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    nav {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    nav {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    nav {
+        max-width: 1140px;
+    }
 }
