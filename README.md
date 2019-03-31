@@ -25,7 +25,7 @@ If you are having trouble guessing the word, the current word is exported to the
 
 ## Backlog
 * Organize the game code as objects and functions as methods
-* Replace reload link with link to the readme
+* Replace reload link with link to the README
 * Remove the reload link on the .navbar-brand
 * Simplify the use of arrays (arrays used to organize current word and guessed letters, but can be reduced by containing everything in strings)
 * Add hints, because this is actually hard
