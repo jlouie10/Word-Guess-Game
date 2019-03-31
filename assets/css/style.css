@@ -7,6 +7,7 @@ body {
 span {
     white-space: pre;
     font-family: 'Cinzel', serif;
+    text-transform: uppercase;
 }
 
 ul {
@@ -39,7 +40,6 @@ ul {
 }
 
 .navbar-brand {
-    /* text-transform: uppercase; */
     font-size: 1.5rem;
     margin: 0;
     color: #fff;
@@ -56,13 +56,6 @@ ul {
 }
 
 .jumbotron {
-    /* background-image: url("assets/images/gordon_bg.png"); */
-    /* background-image: url("../images/gordon_bg.jpg");
-    max-height: 568px;
-    max-width: 960px;
-    height: 568px;
-    background-size: cover;
-    background-repeat: no-repeat; */
     background-color: #000;
     padding-top: 0;
     padding-bottom: 0;
@@ -83,12 +76,14 @@ ul {
     text-align: center;
 }
 
-#instructions {
+#instructions span {
+    font-family: 'Open Sans', sans-serif;
     font-size: 1.5rem;
     font-weight: 400;
+    text-transform: none;
 }
 
-#instructions-outer {
+#content-outer {
     position: absolute;
     bottom: 40px;
     width: 100%;
@@ -103,6 +98,16 @@ ul {
 
 #letters {
     font-size: 2rem;
+}
+
+#word-previous-first {
+    font-family: 'Open Sans', sans-serif;
+    text-transform: none;
+}
+
+#word-previous-second {
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 @media (min-width: 576px) {
@@ -142,14 +147,15 @@ ul {
     }
 
     .navbar-widget {
-        display: none;
+        top: 80px;
+        right: 40px;
     }
 
-    #instructions-outer {
+    #content-outer {
         bottom: 20px;
     }
 
-    #instructions {
+    #instructions span {
         font-size: 1.2rem;
     }
 
@@ -171,5 +177,13 @@ ul {
     #word-current {
         font-size: 1.1rem;
         letter-spacing: 0.2rem;
+    }
+
+    .jumbotron {
+        margin-bottom: 40px;
+    }
+
+    #content-outer {
+        bottom: -40px;
     }
 }

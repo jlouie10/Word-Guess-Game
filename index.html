@@ -42,8 +42,8 @@
 
   <div class="jumbotron">
     <img src="assets/images/gordon_bg.jpg" alt="Gordon" />
-    <div id="instructions-outer">
-      <h1 id="instructions" class="display-4">Press any key to get started</h1>
+    <div id="content-outer">
+      <h1 id="instructions" class="display-4"><span id="instructions-text"></span></h1>
       <div id="word" class="container">
         <div class="row">
           <div class="col-12">
@@ -60,7 +60,7 @@
     <div class="row">
       <div class="col-12">
         <p>
-          Letters already guessed: <span id="letters"></span>
+          <span id="letters"> </span>
         </p>
       </div>
     </div>
@@ -70,7 +70,7 @@
     <div class="row">
       <div class="col-12">
         <p>
-          Previous word: <span id="word-previous"></span>
+          <span id="word-previous-first"></span><span id="word-previous-second"></span>
         </p>
       </div>
     </div>
