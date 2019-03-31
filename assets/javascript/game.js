@@ -3,7 +3,7 @@ var wins = 0;
 var word = {
     current: "",
     previous: "",
-    pack: ["spaghetti", "pizza", "steak", "salad", "fried chicken", "burrito", "burger", "mashed potatoes"],
+    pack: ["risotto", "prawns", "scallops", "wellington", "filet", "mushrooms", "potato", "pudding", "burger", "salmon", "lobster", "short rib", "omlette", "meatballs", "fried chicken", "scrambled eggs", "bean dip", "porkchop", "sticky ribs", "sliders", "pasta", "roast", "roast beef", "curry", "chorizo", "salad", "carrot cake", "roast duck", "gnocchi", "arancini", "shawarma", "sea bass", "caviar", "pancakes", "gazpacho", "roasted squash", "jerk chicken", "apple crumble", "chips", "bisque", "caesar salad", "carpaccio", "pork belly", "monkfish", "beef tartare", "venison", "sweetbread", "pigeon", "veal", "lamb chop"],
     masked: [], // !!! Combine array and string !!!
     string: ""
 };
@@ -22,6 +22,7 @@ var text = {
     letters: document.getElementById("letters")
 };
 
+console.log(word.pack.length);
 // Start a new game when page is loaded
 newGame();
 
@@ -58,13 +59,13 @@ function newGame() {
 
         // Creates a masked word and stores in the array
         for (i = 0; i < word.current.length; i++) {
-            
+
             // If space or dash, ignore and remove from guess count
             if ((word.current.charAt(i) === " ") ||
                 (word.current.charAt(i) === "-")) {
-                    word.masked[i] = word.current.charAt(i);
-                    guess.left--;
-                }
+                word.masked[i] = word.current.charAt(i);
+                guess.left--;
+            }
             else {
                 word.masked[i] = "_";
             }
@@ -89,8 +90,8 @@ function initializeDisplay() {
 
 function validateInput(input) {
     // User regular expression to accept lowercase keypress
-    var regex=/^[a-z]+$/;
-    
+    var regex = /^[a-z]+$/;
+
     if (input.match(regex) === null) {
         return false;
     }
@@ -160,7 +161,7 @@ function determineWin() { // !!! Revise this into a count down from word length 
 }
 
 function updateLetters(inputArray, inputString, span) {
-    
+
     // Remove commas from display
     inputString = inputArray.toString();
     span.textContent = inputString.replace(/,/g, " ");
